@@ -54,13 +54,10 @@ const App = () => {
   const setToValue = (type, newValue) => {
     console.log(` ${type} value now`, newValue);
     if (type === "good") {
-      console.log(` ${type} value now`, newValue);
       setGood(newValue);
     } else if (type === "neutral") {
-      console.log(` ${type} value now`, newValue);
       setNeutral(newValue);
     } else if (type === "bad") {
-      console.log(` ${type} value now`, newValue);
       setBad(newValue);
     } else {
       console.log("wrong type");
