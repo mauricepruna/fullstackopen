@@ -15,7 +15,7 @@ const App = () => {
     }
     fetchData();
   }, []);
-  const addPerson = (event) => {
+  const addPerson = async (event) => {
     event.preventDefault();
     const check_persons = persons.filter((element) => element.name === newName);
     if (check_persons.length > 0) {
@@ -27,7 +27,11 @@ const App = () => {
         id: persons.length + 1,
       };
 
-      setPersons(persons.concat(newPerson));
+      const response = await axios.post(
+        "http://localhost:3001/persons",
+        newPerson
+      );
+      setPersons(persons.concat(response.data));
       setNewName("");
       setNewNumber("");
     }
