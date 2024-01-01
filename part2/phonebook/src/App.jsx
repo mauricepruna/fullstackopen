@@ -93,7 +93,6 @@ const App = () => {
   };
   const handleFilteredName = (event) => {
     const filter_element = event.target.value;
-    console.log(filter_element);
     setFilteredName(filter_element);
   };
   const handleDelete = (persons, person) => {

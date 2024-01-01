@@ -1,6 +1,6 @@
 import Country from "./Country";
 import Language from "./Language";
-const Countries = ({ countries }) => {
+const Countries = ({ countries, handleShow }) => {
   if (countries.length == 1) {
     const country = countries[0];
     return (
@@ -32,7 +32,11 @@ const Countries = ({ countries }) => {
     return (
       <div>
         {countries.map((country) => (
-          <Country key={country.name.official} country={country} />
+          <Country
+            key={country.name.official}
+            country={country}
+            handle={() => handleShow(country)}
+          />
         ))}
       </div>
     );

@@ -19,6 +19,10 @@ const App = () => {
     const filtered = event.target.value;
     setFiltered(filtered);
   };
+  const handleShow = (country) => {
+    setFiltered(country.name.common.toLowerCase());
+    setCountries([country]);
+  };
 
   const countries_filtered =
     filtered === ""
@@ -26,6 +30,7 @@ const App = () => {
       : countries.filter((country) =>
           country.name.common.toLowerCase().includes(filtered)
         );
+
   if (!countries) {
     return null;
   }
@@ -36,7 +41,7 @@ const App = () => {
       <div>
         filter shown with: <input value={filtered} onChange={handleChange} />
       </div>
-      <Countries countries={countries_filtered} />
+      <Countries countries={countries_filtered} handleShow={handleShow} />
     </div>
   );
 };
