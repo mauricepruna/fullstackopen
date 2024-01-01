@@ -1,5 +1,6 @@
-import Country from "./Country";
 import Language from "./Language";
+import List from "./List";
+import Many from "./Many";
 const Countries = ({ countries, handleShow }) => {
   if (countries.length == 1) {
     const country = countries[0];
@@ -23,23 +24,9 @@ const Countries = ({ countries, handleShow }) => {
       </div>
     );
   } else if (countries.length > 10) {
-    return (
-      <div>
-        <p>Too many matches, specify another filter.</p>
-      </div>
-    );
+    return <Many />;
   } else {
-    return (
-      <div>
-        {countries.map((country) => (
-          <Country
-            key={country.name.official}
-            country={country}
-            handle={() => handleShow(country)}
-          />
-        ))}
-      </div>
-    );
+    return <List countries={countries} handleShow={handleShow} />;
   }
 };
 export default Countries;

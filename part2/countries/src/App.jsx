@@ -10,11 +10,11 @@ const App = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const fetchedCountries = await service.getAll();
+      const fetchedCountries = await service.getAllCountries();
       setCountries(fetchedCountries);
     }
     fetchData();
-  }, [countries]);
+  }, []);
   const handleChange = (event) => {
     const filtered = event.target.value;
     setFiltered(filtered);
