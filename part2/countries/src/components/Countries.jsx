@@ -1,9 +1,27 @@
+import { useState, useEffect } from "react";
+import service from "../services/service";
+
 import Language from "./Language";
 import List from "./List";
 import Many from "./Many";
 const Countries = ({ countries, handleShow }) => {
-  if (countries.length == 1) {
+  const [weather, setWeather] = useState(null);
+
+  const countriesNum = countries.length;
+  useEffect(() => {
+    async function fetchData() {
+      if (countriesNum == 1) {
+        const [lat, long] = countries[0].capitalInfo.latlng;
+
+        const fetchedWeather = await service.getWeather(lat, long);
+        setWeather(fetchedWeather);
+      }
+    }
+    fetchData();
+  }, [countries, countriesNum]);
+  if (countriesNum == 1) {
     const country = countries[0];
+    console.log(weather);
     return (
       <div>
         <h2>{country.name.common}</h2>
@@ -23,7 +41,7 @@ const Countries = ({ countries, handleShow }) => {
         </div>
       </div>
     );
-  } else if (countries.length > 10) {
+  } else if (countriesNum > 10) {
     return <Many />;
   } else {
     return <List countries={countries} handleShow={handleShow} />;
