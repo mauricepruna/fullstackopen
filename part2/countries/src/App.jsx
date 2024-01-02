@@ -1,27 +1,28 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import service from "./services/service";
 import Notification from "./components/Notification";
-import Countries from "./components/Countries";
+import CountriesInfo from "./components/CountriesInfo";
 const App = () => {
   const [filtered, setFiltered] = useState("");
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(false);
   const [countries, setCountries] = useState(null);
-
+  const fetchedCountries = useRef(null);
   useEffect(() => {
     async function fetchData() {
-      const fetchedCountries = await service.getAllCountries();
+      fetchedCountries.current = await service.getAllCountries();
       setCountries(fetchedCountries);
     }
     fetchData();
   }, []);
   const handleChange = (event) => {
     const filtered = event.target.value;
+    setCountries(fetchedCountries.current);
     setFiltered(filtered);
   };
   const handleShow = (country) => {
-    setFiltered(country.name.common.toLowerCase());
     setCountries([country]);
+    setFiltered(country.name.common.toLowerCase());
   };
 
   const countries_filtered =
@@ -41,7 +42,7 @@ const App = () => {
       <div>
         filter shown with: <input value={filtered} onChange={handleChange} />
       </div>
-      <Countries countries={countries_filtered} handleShow={handleShow} />
+      <CountriesInfo countries={countries_filtered} handleShow={handleShow} />
     </div>
   );
 };

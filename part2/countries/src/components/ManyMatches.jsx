@@ -1,8 +1,8 @@
-const Many = () => {
+const ManyMatches = () => {
   return (
     <div>
       <p>Too many matches, specify another filter.</p>
     </div>
   );
 };
-export default Many;
+export default ManyMatches;
