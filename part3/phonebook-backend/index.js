@@ -94,6 +94,32 @@ app.post("/api/persons", (request, response) => {
   response.json(newPerson);
 });
 
+app.put("/api/persons/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const body = request.body;
+  if (!body.name) {
+    return response.status(400).json({
+      error: "name missing",
+    });
+  }
+  if (!body.number) {
+    return response.status(400).json({
+      error: "number missing",
+    });
+  }  
+
+  updatedPerson = {
+    id: id,
+    name: body.name,
+    number: body.number,
+  };
+
+  persons = persons.filter((person) => person.id !== id);
+  persons = persons.concat(updatedPerson);
+  response.json(updatedPerson);
+});
+
+
 const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
